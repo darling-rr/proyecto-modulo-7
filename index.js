@@ -1,3 +1,5 @@
+const visitLogger = require("./middlewares/visitLogger");
+
 // Importa express para crear el servidor
 const express = require("express");
 
@@ -21,6 +23,8 @@ app.use(express.json());
 
 // Middleware para interpretar datos de formularios
 app.use(express.urlencoded({ extended: true }));
+
+app.use(visitLogger);
 
 // Middleware para servir archivos estáticos desde la carpeta public
 app.use(express.static(path.join(__dirname, "public")));
