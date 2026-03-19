@@ -1,0 +1,24 @@
+{
+  "name": "proyecto-modulo-6",
+  "version": "1.0.0",
+  "description": "Aplicación backend base con Node.js y Express para la evaluación del módulo 6.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "keywords": [
+    "node",
+    "express",
+    "backend"
+  ],
+  "author": "Tu Nombre",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.6.1",
+    "express": "^4.22.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}
