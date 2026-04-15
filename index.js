@@ -14,7 +14,20 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(visitLogger);
 app.use(express.static(path.join(__dirname, "public")));
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+app.use("/uploads", express.static("uploads"));
 app.use("/", mainRouter);
+
+app.use((error, req, res, next) => {
+  if (error) {
+    return res.status(400).json({
+      status: "error",
+      message: error.message,
+      data: null
+    });
+  }
+  next();
+});
 
 sequelize.authenticate()
   .then(() => {

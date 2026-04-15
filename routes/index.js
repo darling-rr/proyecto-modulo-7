@@ -5,7 +5,11 @@ const homeController = require("../controllers/homeController");
 const statusController = require("../controllers/statusController");
 const usersRouter = require("./users");
 const { User, Order } = require("../models");
+const authRoutes = require("./authRoutes");
+const uploadRoutes = require("./uploadRoutes");
 
+router.use("/", authRoutes);
+router.use("/", uploadRoutes);
 router.get("/", homeController.index);
 router.get("/status", statusController.status);
 router.use("/usuarios", usersRouter);
@@ -220,5 +224,10 @@ router.get("/usuarios/:id/pedidos", async (req, res) => {
     });
   }
 });
+
+
+
+
+
 
 module.exports = router;

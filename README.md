@@ -1,109 +1,146 @@
-# Proyecto Módulo 6 - Node & Express Web App
+# Proyecto Integrador JS – Módulo 8
+API RESTful segura con JWT y subida de archivos
 
-## 📌 Descripción
+## Descripción
 
-Este proyecto corresponde al desarrollo de un backend utilizando Node.js y Express.
-Se implementa una estructura modular que incluye controladores, rutas, middlewares y archivos estáticos.
+Este proyecto corresponde a la tercera etapa del proyecto integrador del curso.  
+En esta fase se implementó una API RESTful sobre la aplicación desarrollada en los módulos anteriores, incorporando autenticación mediante JSON Web Tokens (JWT), protección de rutas y subida de archivos al servidor.
 
-Además, se incorpora un middleware personalizado que registra cada visita en un archivo de logs.
+La aplicación está construida con Node.js, Express y Sequelize, y permite gestionar usuarios y pedidos, además de exponer endpoints protegidos que pueden ser consumidos por clientes externos.
 
----
+## Tecnologías utilizadas
 
-## 🧠 ¿Por qué elegí `index.js`?
+- Node.js
+- Express
+- Sequelize
+- PostgreSQL
+- JSON Web Token (jsonwebtoken)
+- Multer
+- Thunder Client
+- Postman
 
-Elegí `index.js` como archivo principal porque es una convención ampliamente utilizada en proyectos Node.js para definir el punto de entrada de la aplicación.
-Esto facilita la comprensión del proyecto por parte de otros desarrolladores.
+## Objetivos del módulo
 
----
+- Exponer la lógica del backend mediante una API RESTful
+- Implementar autenticación con JWT
+- Proteger rutas mediante middleware
+- Permitir subida de archivos al servidor
+- Validar tipo y tamaño de archivo
+- Mantener una arquitectura modular con rutas, controladores y middlewares
 
-## ⚙️ Tecnologías usadas
+## Estructura del proyecto
 
-* Node.js
-* Express.js
-* dotenv
-* nodemon
-
----
-
-## 💻 Requisitos
-
-* Node.js v18 o superior
-* npm
-
----
-
-## 📦 Instalación
-
-1. Clonar el repositorio:
-
-```bash
-git clone URL_DEL_REPOSITORIO
-cd proyecto-modulo-6
-```
-
-2. Instalar dependencias:
-
-```bash
-npm install
-```
-
-3. Crear archivo `.env` en la raíz:
-
-```env
-PORT=3001
-```
-
----
-
-## 🚀 Ejecución
-
-Modo desarrollo:
-
-```bash
-npm run dev
-```
-
-Modo normal:
-
-```bash
-npm start
-```
-
----
-
-## 🌐 Rutas disponibles
-
-* `/` → Página HTML principal
-* `/status` → Estado del servidor en formato JSON
-
----
-
-## 🧾 Middleware
-
-El proyecto incluye un middleware personalizado (`visitLogger`) que:
-
-* Registra cada visita
-* Guarda fecha, hora y ruta
-* Almacena la información en `logs/log.txt`
-
----
-
-## 📁 Estructura del proyecto
-
-```
 controllers/
+  authController.js
+  homeController.js
+  statusController.js
+  uploadController.js
+  userController.js
+
 middlewares/
+  authMiddleware.js
+  uploadMiddleware.js
+  visitLogger.js
+
+models/
+  User.js
+  Order.js
+  index.js
+
 routes/
+  authRoutes.js
+  uploadRoutes.js
+  users.js
+  index.js
+
+uploads/
 public/
-logs/
 index.js
-.env
-package.json
-```
 
----
+## Funcionalidades implementadas
 
-## 📌 Notas
+### Autenticación
 
-* El puerto es configurable mediante variables de entorno.
-* Se utiliza `nodemon` para reinicio automático en desarrollo.
+- Login de usuario mediante `POST /login`
+- Generación de token JWT válido
+- Validación de token con middleware
+
+### Rutas protegidas
+
+- Protección de rutas mediante header `Authorization`
+- Acceso restringido a endpoints sin token o con token inválido
+
+### Gestión de usuarios
+
+- Obtener todos los usuarios
+- Obtener usuario por ID
+- Crear usuario
+- Actualizar usuario
+- Eliminar usuario
+
+### Gestión de pedidos
+
+- Crear pedidos asociados a un usuario
+- Obtener usuario con sus pedidos
+
+### Subida de archivos
+
+- Endpoint `POST /upload`
+- Almacenamiento en carpeta `uploads/`
+- Validación de tipo de archivo
+- Validación de tamaño máximo
+
+## Endpoints principales
+
+### Autenticación
+- `POST /login`
+
+### Usuarios
+- `GET /usuarios`
+- `GET /usuarios/:id`
+- `POST /usuarios`
+- `PUT /usuarios/:id`
+- `DELETE /usuarios/:id`
+
+### Pedidos
+- `POST /pedidos`
+- `GET /usuarios/:id/pedidos`
+
+### Archivos
+- `POST /upload`
+
+## Seguridad
+
+Se protegieron rutas usando JWT mediante el header:
+
+Authorization: Bearer TU_TOKEN
+
+Además, la contraseña del usuario se excluye de las respuestas del servidor utilizando:
+
+attributes: { exclude: ["password"] }
+
+## Subida de archivos
+
+La subida de archivos se implementó con Multer.  
+Los archivos se almacenan en la carpeta `uploads/` con nombre único generado automáticamente.
+
+Se validan:
+- tipo de archivo permitido
+- tamaño máximo del archivo
+
+## Pruebas realizadas
+
+Las pruebas se realizaron utilizando Thunder Client y Postman, verificando:
+
+- login exitoso
+- generación de token JWT
+- acceso denegado sin token
+- acceso permitido con token válido
+- subida correcta de archivo
+- consulta de usuarios protegida
+- consulta de usuario con pedidos
+- validaciones de error
+
+## Autor
+
+Darling Rebolledo
